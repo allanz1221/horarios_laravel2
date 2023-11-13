@@ -1,0 +1,19 @@
+composer create-project laravel/laravel horarios
+composer require laravel/ui
+
+php artisan ui bootstrap --auth
+
+npm install
+npm run dev
+
+php artisan make:migration create_pedidos_table
+--
+php artisan migrate
+composer require ibex/crud-generator --dev
+php artisan vendor_publish --tag=crud
+
+php artisan make:crud clientes
+
+Route::resource('pedidos, ClienteController);
+agregar al menu
+hacer los select 
