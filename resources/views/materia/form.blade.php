@@ -33,7 +33,8 @@
         </div>
         <div class="form-group">
             {{ Form::label('generacion_id') }}
-            {{ Form::text('generacion_id', $materia->generacion_id, ['class' => 'form-control' . ($errors->has('generacion_id') ? ' is-invalid' : ''), 'placeholder' => 'Generacion Id']) }}
+            {{ Form::select('generacion_id', $generacion, $materia->generacion_id, ['class' => 'form-control' . ($errors->has('generacion_id') ? ' is-invalid' : ''), 'placeholder' => 'generacion_id']) }}
+            
             {!! $errors->first('generacion_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 

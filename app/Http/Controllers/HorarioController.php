@@ -65,6 +65,11 @@ class HorarioController extends Controller
 
         $horario = Horario::create($request->all());
 
+        if ($this->hasCollision($request)) {
+            return "Colision";
+            return redirect()->back()->withInput()->withErrors(['message' => '¡Colisión de horarios!']);
+        }
+        
         return redirect()->route('horarios.index')
             ->with('success', 'Horario created successfully.');
     }
@@ -120,8 +125,12 @@ class HorarioController extends Controller
     {
         request()->validate(Horario::$rules);
 
-        $horario->update($request->all());
+        if ($this->hasCollision($request)) {
+            return "Colision";
+            return redirect()->back()->withInput()->withErrors(['message' => '¡Colisión de horarios!']);
+        }
 
+        $horario->update($request->all());
         return redirect()->route('horarios.index')
             ->with('success', 'Horario updated successfully');
     }
@@ -138,4 +147,26 @@ class HorarioController extends Controller
         return redirect()->route('horarios.index')
             ->with('success', 'Horario deleted successfully');
     }
+
+    private function hasCollision(Request $request)
+    {
+        $start_time = $request->input('hora_inicio');
+        $classroom_id = $request->input('salon_id');
+        $docente_id = $request->input('docente_id');
+
+        // Verificar colisiones en la base de datos
+        $collision = Horario::where(function ($query) use ($start_time, $docente_id, $classroom_id) {
+            $query->where('hora_inicio', '=', $start_time)
+                ->where('docente_id', '=', $docente_id)
+                ->where(function ($subquery) use ($classroom_id) {
+                    // Excluir la misma aula y también asegurarse de que el aula no sea "PLA"
+                    $subquery->where('salon_id', '<>', $classroom_id)
+                        ->orWhere('salon_id', '10');
+                });
+        })->exists();
+
+        return $collision;
+    }
+
+    
 }

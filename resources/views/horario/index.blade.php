@@ -53,8 +53,6 @@
 										<th>Docente Id</th>
 										<th>Salon Id</th>
                                         <th>Dia</th>                                        
-										<th>Start Time</th>
-										<th>End Time</th>
 										<th>Hora Inicio</th>
 										<th>Hora Fin</th>
 
@@ -71,8 +69,6 @@
 											<td>{{ $horario->docente->nombre }}</td>
 											<td>{{ $horario->salone->nombre }}</td>
                                             <td>{{ $horario->dia }}</td>
-											<td>{{ $horario->start_time }}</td>
-											<td>{{ $horario->end_time }}</td>
 											<td>{{ $horario->hora_inicio }}</td>
 											<td>{{ $horario->hora_fin }}</td>
 
@@ -97,49 +93,21 @@
         </div>
     </div>
 
-    <table id="tablaHoraria">
-        <thead>
-            <tr>
-                <th></th> <!-- Espacio para la fila de horas -->
-                <th>Lunes</th>
-                <th>Martes</th>
-                <th>Miércoles</th>
-                <th>Jueves</th>
-                <th>Viernes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Generar filas para cada hora -->
-            <!-- Puedes personalizar el rango de horas según tus necesidades -->
-            <!-- Aquí se va desde las 7:00 hasta las 19:00 --> 
-            <?php for ($hora = 7; $hora <= 19; $hora++) { ?>
-                <tr>
-                    <td><?php echo $hora . ':00 - ' . ($hora + 1) . ':00'; ?></td>
-                    <td id="Lunes-<?php echo $hora . '-' . ($hora + 1); ?>"></td>
-                    <td id="Martes-<?php echo $hora . '-' . ($hora + 1); ?>"></td>
-                    <td id="Miércoles-<?php echo $hora . '-' . ($hora + 1); ?>"></td>
-                    <td id="Jueves-<?php echo $hora . '-' . ($hora + 1); ?>"></td>
-                    <td id="Viernes-<?php echo $hora . '-' . ($hora + 1); ?>"></td>
-                </tr>
-            <?php } ?>
-
-        </tbody>
-    </table>
-
+    
     <table id="horarioTable" class="tftable" border="1">
-            <tr><th>Horario</th><th>Lunes</th><th>Martes</th><th>Miercoles</th><th>Jueves</th><th>Viernes</th><th>Sabado</th></tr>
+            <tr><th>Horario</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Sabado</th></tr>
     </table> 
 
 
 
 <script>
-
+ 
 function addrow(){
  var table = document.getElementById("horarioTable");
   for (var i = 7; i < 19; i++) {
     h_f = i+1;
     var row = table.insertRow(-1);
-    row.innerHTML += "<tr> <td>"+i +":00 - "+h_f+":00 </td><td id='Lunes-"+i+"'></td><td id='Martes-"+i+"'></td><td id='Miercoles-"+i+"'></td><td id='Jueves-"+i+"'></td><td id='Viernes-"+i+"'><td id='Sabado-"+i+"'></td></tr>";
+    row.innerHTML += "<tr> <td>"+i +":00 - "+h_f+":00 </td><td id='Lunes-"+i+"'></td><td id='Martes-"+i+"'></td><td id='Miércoles-"+i+"'></td><td id='Jueves-"+i+"'></td><td id='Viernes-"+i+"'><td id='Sabado-"+i+"'></td></tr>";
   }
   rowsx();
 }
@@ -151,11 +119,8 @@ function rowsx(){
         dia = "{{ $horario->dia }}"
         hora = "{{ $horario->hora_inicio }}"
         var table{{ $horario->id }} = document.getElementById("{{ $horario->dia }}-{{ $horario->hora_inicio }}");
-        table{{ $horario->id }}.innerHTML = "{{ $horario->materia_id }} - {{ $horario->aula_id }}";
-    @endforeach
-
-    {% endfor %}
-  
+        table{{ $horario->id }}.innerHTML = "{{ $horario->materia->clave }} {{ $horario->materia->nombre }} - {{ $horario->salone->nombre }}  - {{ $horario->docente->nombre }}";
+    @endforeach  
 }
 
 

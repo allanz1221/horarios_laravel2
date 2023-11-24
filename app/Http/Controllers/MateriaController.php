@@ -33,7 +33,15 @@ class MateriaController extends Controller
     public function create()
     {
         $materia = new Materia();
-        return view('materia.create', compact('materia'));
+        $generacion = Generacione::all(['id', 'nombre', 'semestre_id'])
+        ->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nombre' => "{$item->nombre} - {$item->Semestre->nombre}  - {$item->Semestre->pe->nombre}" // Puedes ajustar según tus necesidades
+            ];
+        })
+        ->pluck('nombre', 'id');
+        return view('materia.create', compact('materia','generacion'));
     }
 
     /**
@@ -74,8 +82,15 @@ class MateriaController extends Controller
     public function edit($id)
     {
         $materia = Materia::find($id);
-
-        return view('materia.edit', compact('materia'));
+        $generacion = Generacione::all(['id', 'nombre', 'semestre_id'])
+        ->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nombre' => "{$item->nombre} - {$item->Semestre->nombre}  - {$item->Semestre->pe->nombre}" // Puedes ajustar según tus necesidades
+            ];
+        })
+        ->pluck('nombre', 'id');
+        return view('materia.edit', compact('materia','generacion'));
     }
 
     /**
