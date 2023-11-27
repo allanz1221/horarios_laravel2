@@ -95,14 +95,16 @@ class HorarioController extends Controller
     public function edit($id)
     {
         $horario = Horario::find($id);
-        $materia = Materia::all(['id', 'nombre', 'generacion_id'])
+        $materia = Materia::all()
         ->map(function ($item) {
+            $docenteNombre = optional($item->docente)->nombre ?? 'Docente no disponible';
+
             return [
                 'id' => $item->id,
-                'nombre' => "{$item->nombre} - {$item->generacion_id}" // Puedes ajustar según tus necesidades
+                    'nombre' => "{$item->nombre} - {$item->generacione->nombre}  - {$item->generacione->Semestre->pe->nombre} - {$docenteNombre}" // Puedes ajustar según tus necesidades
             ];
         })
-        ->pluck('nombre', 'id');
+        ->pluck('nombre', 'id');        
         $salon = Salone::pluck('nombre','id');
         $dia = [
             'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
