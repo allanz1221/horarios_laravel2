@@ -1,0 +1,44 @@
+nombre,clave,plan,horas,horas_aula,horas_pla,semestre,generacion_id
+Cálculo Diferencial,053CP003,21,5,4,1,2,1
+Álgebra Lineal,053CP001,21,5,4,1,2,1
+Mecánica,052CP031,21,6,5,1,2,1
+Programación,061CP034,21,5,4,1,2,1
+Costos Industriales,041CP030,21,4,3,1,2,1
+Introducción a la Metrología,071CP050,21,5,4,1,2,1
+Inglés II,022CB002,21,5,5,0,2,1
+Cuidado de la Salud,095CB001,21,4,3,1,2,1
+Cálculo Diferencial,053CP003,21,5,4,1,2,2
+Álgebra Lineal,053CP001,21,5,4,1,2,2
+Mecánica,052CP031,21,6,5,1,2,2
+Programación,061CP034,21,5,4,1,2,2
+Costos Industriales,041CP030,21,4,3,1,2,2
+Introducción a la Metrología,071CP050,21,5,4,1,2,2
+Inglés II,022CB002,21,5,5,0,2,2
+Cuidado de la Salud,095CB001,21,4,3,1,2,2
+Ecuaciones Diferenciales,053CP009,21,5,4,1,4,3
+Electromagnetismo,052CP014,21,6,5,1,4,3
+Elementos de Máquinas,071CP020,21,4,4,0,4,3
+Mantenimiento y Seguridad Industrial,071CP046,21,4,4,0,4,3
+Administración Industrial,042CP015,21,3,3,0,4,3
+Electrónica Digital,071CP019,21,4,4,0,4,3
+Teoría de Circuitos,071CP073,21,6,5,1,4,3
+Inglés IV,022CB004,21,5,5,0,4,3
+Sensores y Actuadores,071CP062,21,5,5,0,6,4
+Electrónica de Potencia ,071CP018,21,6,5,1,6,4
+Sistemas Hidráulicos y Neumáticos,071CP070,21,4,4,0,6,4
+Electrónica Analógica II,071CP016,21,5,4,1,6,4
+Introducción a la Programación Aplicada,061CP056,21,5,4,1,6,4
+Manufactura,072CP027,21,5,4,1,6,4
+Metodología de la Investigación II,001CP005,21,3,2,1,6,4
+TALLER PARA LA VALIDACION DE LAS COMPETENCIAS DE EGRESO                                             ,CHS79C1,14,2,2,0,8,5
+REDES INDUSTRIALES                                                                                  ,COM40C1,14,5,3,2,8,5
+ROBOTICA                                                                                            ,MEC16C1,14,5,3,2,8,5
+AUTOMATIZACION INDUSTRIAL                                                                           ,MEC17C1,14,5,3,2,8,5
+DISEÑO DE SISTEMAS MECATRONICOS                                                                     ,MEC18C1,14,5,3,2,8,5
+LENGUA EXTRANJERA                                                                                   ,LEX06C1,14,4,4,0,8,5
+TALLER PARA LA VALIDACION DE LAS COMPETENCIAS DE EGRESO                                             ,CHS79C1,14,2,2,0,8,6
+REDES INDUSTRIALES                                                                                  ,COM40C1,14,5,3,2,8,6
+ROBOTICA                                                                                            ,MEC16C1,14,5,3,2,8,6
+AUTOMATIZACION INDUSTRIAL                                                                           ,MEC17C1,14,5,3,2,8,6
+DISEÑO DE SISTEMAS MECATRONICOS                                                                     ,MEC18C1,14,5,3,2,8,6
+LENGUA EXTRANJERA                                                                                   ,LEX06C1,14,4,4,0,8,6

@@ -46,11 +46,6 @@
             {!! $errors->first('materia_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('docente_id') }}
-            {{ Form::select('docente_id', $docente, $horario->docente_id, ['class' => 'form-control' . ($errors->has('materia_id') ? ' is-invalid' : ''), 'placeholder' => 'Materia Id']) }}
-            {!! $errors->first('docente_id', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
             {{ Form::label('dia') }}
             {!! Form::select('dia', $diasAsociativos, $horario->dia, ['class' => 'form-control', 'placeholder' => 'Selecciona un día']) !!}
 

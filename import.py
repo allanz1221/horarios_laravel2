@@ -14,7 +14,7 @@ conn = mysql.connector.connect(**db_config)
 cursor = conn.cursor()
 
 # Ruta del archivo CSV
-csv_file_path = 'import.csv'
+csv_file_path = 'exportarIIM.csv'
 
 # Lectura del archivo CSV y carga de datos a la base de datos
 try:
@@ -23,17 +23,20 @@ try:
         
         # Itera sobre cada fila del CSV
         for row in csv_reader:
+            print(row['clave'])
             # Obtiene los valores de cada columna
-            nombre = row['nombre']
+            nombre = row['nombre'].strip()
             clave = row['clave']
             plan = row['plan']
             horas = row['horas']
             horas_aula = row['horas_aula']
-            horas_plan = row['horas_pla']
+            horas_pla = row['horas_pla']
+            semestre = row['semestre']
+            generacion_id = row['generacion_id']
 
             # Inserta los datos en la base de datos
-            query = "INSERT INTO horarios (nombre, clave, plan, horas, horas_aula, horas_plan) VALUES (%s, %s, %s, %s, %s, %s)"
-            values = (nombre, clave, plan, horas, horas_aula, horas_plan)
+            query = "INSERT INTO materias (nombre, clave, plan, horas, horas_aula, horas_pla, semestre, generacion_id) VALUES (%s, %s, %s, %s, %s, %s,%s, %s)"
+            values = (nombre, clave, plan, horas, horas_aula, horas_pla, semestre, generacion_id)
             cursor.execute(query, values)
 
         # Realiza la confirmación de la transacción

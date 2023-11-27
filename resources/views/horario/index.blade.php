@@ -66,7 +66,7 @@
                                             <td>{{ $horario->materia->generacione->Semestre->pe->nombre }}</td>                                            
                                             <td>{{ $horario->materia->generacione->nombre }}</td>
 											<td>{{ $horario->materia->nombre }}</td>
-											<td>{{ $horario->docente->nombre }}</td>
+											<td>{{ $horario->materia->docente->nombre ?? '' }}</td>
 											<td>{{ $horario->salone->nombre }}</td>
                                             <td>{{ $horario->dia }}</td>
 											<td>{{ $horario->hora_inicio }}</td>
@@ -119,7 +119,7 @@ function rowsx(){
         dia = "{{ $horario->dia }}"
         hora = "{{ $horario->hora_inicio }}"
         var table{{ $horario->id }} = document.getElementById("{{ $horario->dia }}-{{ $horario->hora_inicio }}");
-        table{{ $horario->id }}.innerHTML = "{{ $horario->materia->clave }} {{ $horario->materia->nombre }} - {{ $horario->salone->nombre }}  - {{ $horario->docente->nombre }}";
+        table{{ $horario->id }}.innerHTML = "{{ $horario->materia->clave }} {{ $horario->materia->nombre }} - {{ $horario->salone->nombre }}  - {{ $horario->materia->docente->nombre ?? '' }}";
     @endforeach  
 }
 
@@ -127,4 +127,6 @@ function rowsx(){
 
 
 </script>
+
+
 @endsection

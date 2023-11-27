@@ -37,7 +37,17 @@
             
             {!! $errors->first('generacion_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-
+        <div class="form-group">
+            {{ Form::label('docente_id') }}
+            {{ Form::select('docente_id', $docente, $materia->docente_id, ['class' => 'form-control' . ($errors->has('docente_id') ? ' is-invalid' : ''), 'placeholder' => 'docente_id']) }}
+            
+            {!! $errors->first('docente_id', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        <div class="form-group">
+            {{ Form::label('semestre') }}
+            {{ Form::text('semestre', $materia->semestre, ['class' => 'form-control' . ($errors->has('semestre') ? ' is-invalid' : ''), 'placeholder' => 'Semestre']) }}
+            {!! $errors->first('semestre', '<div class="invalid-feedback">:message</div>') !!}
+        </div>        
     </div>
     <div class="box-footer mt20">
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>

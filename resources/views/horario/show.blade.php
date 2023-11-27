@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <strong>Docente Id:</strong>
-                            {{ $horario->docente_id }}
+                            {{ $horario->materia->docente->nombre }}
                         </div>
                         <div class="form-group">
                             <strong>Salon Id:</strong>

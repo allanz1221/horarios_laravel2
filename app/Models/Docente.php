@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $updated_at
  *
  * @property Horario[] $horarios
+ * @property Materia[] $materias
  * @property Pe $pe
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -61,6 +62,15 @@ class Docente extends Model
     {
         return $this->hasMany('App\Models\Horario', 'docente_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function materias()
+    {
+        return $this->hasMany('App\Models\Materia', 'materia_id', 'id');
+    }
+        
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

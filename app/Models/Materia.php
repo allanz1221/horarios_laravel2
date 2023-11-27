@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $generacion_id
  * @property $created_at
  * @property $updated_at
- *
+ * @property Docente $docente
  * @property Generacione $generacione
  * @property Horario[] $horarios
  * @package App
@@ -34,16 +34,19 @@ class Materia extends Model
 		'horas_aula' => 'required',
 		'horas_pla' => 'required',
 		'generacion_id' => 'required',
+		'docente_id' => 'required',
+		'semestre' => 'required',
+
     ];
 
-    protected $perPage = 20;
+    protected $perPage = 1000;
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['nombre','clave','plan','horas','horas_aula','horas_pla','generacion_id'];
+    protected $fillable = ['nombre','clave','plan','horas','horas_aula','horas_pla','generacion_id','docente_id','semestre'];
 
 
     /**
@@ -55,8 +58,15 @@ class Materia extends Model
     }
     
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
+    public function docente()
+    {
+        return $this->hasOne('App\Models\Docente', 'id', 'docente_id');
+    }
+     /**
+      * @return \Illuminate\Database\Eloquent\Relations\HasMany
+      */
     public function horarios()
     {
         return $this->hasMany('App\Models\Horario', 'materia_id', 'id');

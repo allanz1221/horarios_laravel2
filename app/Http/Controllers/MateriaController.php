@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materia;
 use Illuminate\Http\Request;
 use App\Models\Generacione;
-
+use App\Models\Docente;
 /**
  * Class MateriaController
  * @package App\Http\Controllers
@@ -41,7 +41,16 @@ class MateriaController extends Controller
             ];
         })
         ->pluck('nombre', 'id');
-        return view('materia.create', compact('materia','generacion'));
+        $docente = Docente::orderBy('nombre', 'asc')
+        ->get(['id', 'nombre'])
+        ->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nombre' => "{$item->nombre}"
+            ];
+        })
+        ->pluck('nombre', 'id');
+        return view('materia.create', compact('materia','docente','generacion'));
     }
 
     /**
@@ -90,7 +99,16 @@ class MateriaController extends Controller
             ];
         })
         ->pluck('nombre', 'id');
-        return view('materia.edit', compact('materia','generacion'));
+        $docente = Docente::orderBy('nombre', 'asc')
+        ->get(['id', 'nombre'])
+        ->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nombre' => "{$item->nombre}"
+            ];
+        })
+        ->pluck('nombre', 'id');             
+        return view('materia.edit', compact('materia','generacion','docente'));
     }
 
     /**

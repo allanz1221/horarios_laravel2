@@ -19,7 +19,10 @@
                     </div>
 
                     <div class="card-body">
-                        
+                        <div class="form-group">
+                            <strong>Docente:</strong>
+                            {{ $materia->docente->nombre }}
+                        </div>                        
                         <div class="form-group">
                             <strong>Nombre:</strong>
                             {{ $materia->nombre }}

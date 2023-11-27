@@ -1,0 +1,48 @@
+nombre,clave,plan,horas,horas_aula,horas_pla,semestre,generacion_id
+Cálculo Diferencial,053CP003,21,5,4,1,2,7
+Álgebra Lineal,053CP001,21,5,4,1,2,7
+Mecánica,052CP031,21,6,5,1,2,7
+Dibujo Industrial,072CP005,21,5,4,1,2,7
+Introducción a los Materiales,072CP018,21,5,4,1,2,7
+Metrología,072CP033,21,5,4,1,2,7
+Inglés II,022CB002,21,5,5,0,2,7
+Cuidado de la Salud,095CB001,21,4,3,1,2,7
+Cálculo Diferencial,053CP003,21,5,4,1,2,8
+Álgebra Lineal,053CP001,21,5,4,1,2,8
+Mecánica,052CP031,21,6,5,1,2,8
+Dibujo Industrial,072CP005,21,5,4,1,2,8
+Introducción a los Materiales,072CP018,21,5,4,1,2,8
+Metrología,072CP033,21,5,4,1,2,8
+Inglés II,022CB002,21,5,5,0,2,8
+Cuidado de la Salud,095CB001,21,4,3,1,2,8
+Ecuaciones Diferenciales,053CP009,21,5,4,1,4,9
+Electromagnetismo,052CP014,21,6,5,1,4,9
+Ingeniería Económica,042CP050,21,4,3,1,4,9
+Inferencia Estadística,053CP012,21,5,4,1,4,9
+Ergonomía y Salud Ocupacional,103CP003,21,4,3,1,4,9
+Procesos de Manufactura II,072CE042,21,6,5,1,4,9
+Investigación de Operaciones,061CP029,21,5,3,2,4,9
+Inglés IV,022CB004,21,5,5,0,4,9
+Ecuaciones Diferenciales,053CP009,21,5,4,1,4,10
+Electromagnetismo,052CP014,21,6,5,1,4,10
+Ingeniería Económica,042CP050,21,4,3,1,4,10
+Inferencia Estadística,053CP012,21,5,4,1,4,10
+Ergonomía y Salud Ocupacional,103CP003,21,4,3,1,4,10
+Procesos de Manufactura II,072CE042,21,6,5,1,4,10
+Investigación de Operaciones,061CP029,21,5,3,2,4,10
+Inglés IV,022CB004,21,5,5,0,4,10
+Simulación,071CP063,21,5,4,1,6,11
+Evaluación de Proyectos,041CP048,21,4,3,1,6,11
+Hidráulica y Neumática,071CE023,21,5,4,1,6,11
+Ingeniería de Métodos II,071CP029,21,5,4,1,6,11
+Ingeniería de Planta,071CP030,21,5,4,1,6,11
+Relaciones Industriales,042CE058,21,5,3,2,6,11
+Metodología de la Investigación II,001CP005,21,3,2,1,6,11
+Temas Selectos de Ingeniería Industrial,071CE072,21,5,3,2,6,11
+ADMINISTRACION DE LA CALIDAD                                                                        ,ADM41C1,14,4,2,2,8,12
+ADMINISTRACION ESTRATEGICA                                                                          ,ADM42C1,14,4,2,2,8,12
+TALLER PARA LA VALIDACION DE LAS COMPETENCIAS DE EGRESO                                             ,CHS42C1,14,2,2,0,8,12
+MANTENIMIENTO Y SEGURIDAD INDUSTRIAL                                                                ,MII15C1,14,4,2,2,8,12
+LOGISTICA INDUSTRIAL Y COMERCIAL                                                                    ,MII16C1,14,4,2,2,8,12
+LENGUA EXTRANJERA                                                                                   ,LEX06C1,14,4,4,4,8,12
+SEMINARIO DE ACTUALIZACION INDUSTRIAL                                                               ,MII18C1,14,4,3,1,8,12

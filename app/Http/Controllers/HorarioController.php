@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Horario;
 use Illuminate\Http\Request;
 use App\Models\Materia;
-use App\Models\Docente;
 use App\Models\Salone;
 
 /**
@@ -34,15 +33,16 @@ class HorarioController extends Controller
      */
     public function create()
     {
-        $materia = Materia::all(['id', 'nombre', 'generacion_id'])
+        $materia = Materia::all()
         ->map(function ($item) {
+            $docenteNombre = optional($item->docente)->nombre ?? 'Docente no disponible';
+
             return [
                 'id' => $item->id,
-                'nombre' => "{$item->nombre} - {$item->generacione->nombre}  - {$item->generacione->Semestre->pe->nombre}" // Puedes ajustar según tus necesidades
+                    'nombre' => "{$item->nombre} - {$item->generacione->nombre}  - {$item->generacione->Semestre->pe->nombre} - {$docenteNombre}" // Puedes ajustar según tus necesidades
             ];
         })
         ->pluck('nombre', 'id');
-        $docente = Docente::pluck('nombre','id');
         $salon = Salone::pluck('nombre','id');
         $horario = new Horario();
         $dia = [
@@ -50,7 +50,7 @@ class HorarioController extends Controller
         ];
         $diasAsociativos = array_combine($dia, $dia);
 
-        return view('horario.create', compact('horario','materia','docente','salon','diasAsociativos'));
+        return view('horario.create', compact('horario','materia','salon','diasAsociativos'));
     }
 
     /**
@@ -63,13 +63,12 @@ class HorarioController extends Controller
     {
         request()->validate(Horario::$rules);
 
-        $horario = Horario::create($request->all());
 
         if ($this->hasCollision($request)) {
-            return "Colision";
             return redirect()->back()->withInput()->withErrors(['message' => '¡Colisión de horarios!']);
         }
-        
+        $horario = Horario::create($request->all());
+
         return redirect()->route('horarios.index')
             ->with('success', 'Horario created successfully.');
     }
@@ -104,14 +103,13 @@ class HorarioController extends Controller
             ];
         })
         ->pluck('nombre', 'id');
-        $docente = Docente::pluck('nombre','id');
         $salon = Salone::pluck('nombre','id');
         $dia = [
             'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
         ];
         $diasAsociativos = array_combine($dia, $dia);
 
-        return view('horario.edit', compact('horario','materia','docente','salon','diasAsociativos'));
+        return view('horario.edit', compact('horario','materia','salon','diasAsociativos'));
     }
 
     /**
@@ -126,7 +124,6 @@ class HorarioController extends Controller
         request()->validate(Horario::$rules);
 
         if ($this->hasCollision($request)) {
-            return "Colision";
             return redirect()->back()->withInput()->withErrors(['message' => '¡Colisión de horarios!']);
         }
 
@@ -150,21 +147,50 @@ class HorarioController extends Controller
 
     private function hasCollision(Request $request)
     {
-        $start_time = $request->input('hora_inicio');
-        $classroom_id = $request->input('salon_id');
-        $docente_id = $request->input('docente_id');
+        $hora = $request->input('hora_inicio');
+        $salon = $request->input('salon_id');
+        $materia = $request->input('materia_id');
+        $docente = Materia::find($materia)->get('id');
+        $dia = $request->input('dia');
 
+        //Checa disponibilidad de salon
+        // $collision1 = Horario::where('hora_inicio', '=', $hora)->where('salon_id', '=', $salon)->where('dia', '=', $dia)->exists();
+        //Checa disponibilidad de docente
+/*         $collision2 = Horario::where('dia', '=', $dia)
+        ->where('hora_inicio', '=', $hora)
+        ->whereHas('materia', function ($query) use ($docente) {
+            $query->where('docente_id', '=', $docente);
+        }); */
+
+        //Checa disponibilidad de materia
+     //   $collision3 = Horario::where('hora_inicio', '=', $hora)->where('materia', '=', $salon)->where('dia', '=', $dia)->exists();
+
+        
         // Verificar colisiones en la base de datos
-        $collision = Horario::where(function ($query) use ($start_time, $docente_id, $classroom_id) {
-            $query->where('hora_inicio', '=', $start_time)
-                ->where('docente_id', '=', $docente_id)
+/*         $collision = Horario::where(function ($query) use ($hora, $salon, $materia, $dia) {
+            $query->where('hora_inicio', '=', $hora)
+                ->where('docente_id', '=', $docente->docente_id)
                 ->where(function ($subquery) use ($classroom_id) {
                     // Excluir la misma aula y también asegurarse de que el aula no sea "PLA"
                     $subquery->where('salon_id', '<>', $classroom_id)
                         ->orWhere('salon_id', '10');
                 });
+        })->exists(); */
+        $collision = Horario::where(function ($query) use ($hora, $salon, $dia) {
+            $query->where('hora_inicio', '=', $hora)
+                ->where('salon_id', '=', $salon)
+                ->where('dia', '=', $dia);
+        })->orWhere(function ($query) use ($hora, $docente, $dia) {
+            $query->where('dia', '=', $dia)
+                ->where('hora_inicio', '=', $hora)
+                ->whereHas('materia', function ($subquery) use ($docente) {
+                    $subquery->where('docente_id', '=', $docente[0]);
+                });
+        })->orWhere(function ($query) use ($hora, $materia, $dia) {
+            $query->where('hora_inicio', '=', $hora)
+                ->where('materia_id', '=', $materia)
+                ->where('dia', '=', $dia);
         })->exists();
-
         return $collision;
     }
 

@@ -35,7 +35,9 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+										<th>Docente</th>
+										<th>Semestre</th>
+
 										<th>Nombre</th>
 										<th>Clave</th>
 										<th>Plan</th>
@@ -53,7 +55,9 @@
                                     @foreach ($materias as $materia)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
+                                            <td>{{ $materia->docente->nombre ?? '' }}</td>
+											<td>{{ $materia->semestre }}</td>
+
 											<td>{{ $materia->nombre }}</td>
 											<td>{{ $materia->clave }}</td>
 											<td>{{ $materia->plan }}</td>

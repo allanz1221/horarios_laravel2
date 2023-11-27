@@ -97,6 +97,18 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+
+        @if(session('errors') && session('errors')->has('message'))
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Colisión de horarios!',
+                    text: "{{ session('errors')->first('message') }}",
+                });
+            </script>
+        @endif
     </div>
 </body>
 </html>
