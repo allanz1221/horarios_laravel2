@@ -6,6 +6,7 @@ use App\Models\Horario;
 use Illuminate\Http\Request;
 use App\Models\Materia;
 use App\Models\Salone;
+use App\Models\Generacione;
 
 /**
  * Class HorarioController
@@ -23,6 +24,15 @@ class HorarioController extends Controller
         $horarios = Horario::paginate();
 
         return view('horario.index', compact('horarios'))
+            ->with('i', (request()->input('page', 1) - 1) * $horarios->perPage());
+    }
+
+    public function generaciones()
+    {
+        $materias = Materia::all();
+        $generaciones = Generacione::paginate();
+        $horarios = Horario::paginate();
+        return view('horario.generaciones', compact('horarios','generaciones','materias'))
             ->with('i', (request()->input('page', 1) - 1) * $horarios->perPage());
     }
 

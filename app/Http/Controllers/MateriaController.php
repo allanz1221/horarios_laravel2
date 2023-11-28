@@ -6,6 +6,7 @@ use App\Models\Materia;
 use Illuminate\Http\Request;
 use App\Models\Generacione;
 use App\Models\Docente;
+use App\Models\Horario;
 /**
  * Class MateriaController
  * @package App\Http\Controllers
@@ -25,6 +26,11 @@ class MateriaController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $materias->perPage());
     }
 
+    public function cuenta($id)
+    {
+        $numeroDeRegistros = Horario::where('materia_id', $id)->count();
+        return $numeroDeRegistros;
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -5,6 +5,17 @@
 @endsection
 
 @section('content')
+                    <!-- Incluir jQuery -->
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                    <!-- Incluir DataTables CSS -->
+                    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+                    <!-- Incluir DataTables JS -->
+                    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+                    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/dataTables.searchCol.min.js"></script>
+                    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/colreorder/1.5.5/js/dataTables.colReorder.min.js"></script>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -29,9 +40,10 @@
                         </div>
                     @endif
 
+
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table id="miTabla" class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
@@ -55,6 +67,7 @@
                                     @foreach ($materias as $materia)
                                         <tr>
                                             <td>{{ ++$i }}</td>
+                                            
                                             <td>{{ $materia->docente->nombre ?? '' }}</td>
 											<td>{{ $materia->semestre }}</td>
 
@@ -62,7 +75,7 @@
 											<td>{{ $materia->clave }}</td>
 											<td>{{ $materia->plan }}</td>
 											<td>{{ $materia->horas }}</td>
-											<td>{{ $materia->horas_aula }}</td>
+											<td>{{ $materia->horas_aula }} - @php echo app('App\Http\Controllers\MateriaController')->cuenta($materia->id); @endphp                                            </td>
 											<td>{{ $materia->horas_pla }}</td>
 											<td>{{ $materia->generacione->nombre }}</td>
                                             <td>{{ $materia->generacione->semestre->nombre }}</td>
@@ -87,4 +100,31 @@
             </div>
         </div>
     </div>
-@endsection
+
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTables y DataTables - ColReorder
+            var table = $('#miTabla').DataTable({
+                searching: true,
+                ordering: true,
+                colReorder: true // Habilitar la función de reordenar columnas
+            });
+    
+            // Agregar los controles de búsqueda por columna
+            $('#miTabla thead tr').clone(true).appendTo('#miTabla thead');
+            $('#miTabla thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+    
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        });
+    </script>
+    @endsection

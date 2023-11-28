@@ -30,3 +30,5 @@ Route::resource('horarios', App\Http\Controllers\HorarioController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/horario_generacional', [App\Http\Controllers\HorarioController::class, 'generaciones'])->name('generaciones');
