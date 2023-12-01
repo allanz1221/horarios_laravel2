@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Materia;
 use App\Models\Salone;
 use App\Models\Generacione;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class HorarioController
@@ -43,16 +44,7 @@ class HorarioController extends Controller
      */
     public function create()
     {
-        $materia = Materia::all()
-        ->map(function ($item) {
-            $docenteNombre = optional($item->docente)->nombre ?? 'Docente no disponible';
-
-            return [
-                'id' => $item->id,
-                    'nombre' => "{$item->nombre} - {$item->generacione->nombre}  - {$item->generacione->Semestre->pe->nombre} - {$docenteNombre}" // Puedes ajustar según tus necesidades
-            ];
-        })
-        ->pluck('nombre', 'id');
+        $materias = Materia::all();
         $salon = Salone::pluck('nombre','id');
         $horario = new Horario();
         $dia = [
@@ -60,7 +52,7 @@ class HorarioController extends Controller
         ];
         $diasAsociativos = array_combine($dia, $dia);
 
-        return view('horario.create', compact('horario','materia','salon','diasAsociativos'));
+        return view('horario.create', compact('horario','materias','salon','diasAsociativos'));
     }
 
     /**
@@ -105,25 +97,23 @@ class HorarioController extends Controller
     public function edit($id)
     {
         $horario = Horario::find($id);
-        $materia = Materia::all()
-        ->map(function ($item) {
-            $docenteNombre = optional($item->docente)->nombre ?? 'Docente no disponible';
-
-            return [
-                'id' => $item->id,
-                    'nombre' => "{$item->nombre} - {$item->generacione->nombre}  - {$item->generacione->Semestre->pe->nombre} - {$docenteNombre}" // Puedes ajustar según tus necesidades
-            ];
-        })
-        ->pluck('nombre', 'id');        
+        $materias = Materia::all();
         $salon = Salone::pluck('nombre','id');
         $dia = [
             'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
         ];
         $diasAsociativos = array_combine($dia, $dia);
 
-        return view('horario.edit', compact('horario','materia','salon','diasAsociativos'));
+        return view('horario.edit', compact('horario','materias','salon','diasAsociativos'));
     }
+    public function obtenerHorarios($materia_id)
+    {
+        // Aquí puedes utilizar el $materia_id para obtener la información que necesitas
+        $horarios = Horario::where('materia_id', $materia_id)->get();
 
+        // Devolver la información en formato JSON
+        return response()->json(['horarios' => $horarios]);
+    }
     /**
      * Update the specified resource in storage.
      *

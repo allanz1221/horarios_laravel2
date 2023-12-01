@@ -57,4 +57,10 @@
             </div>
         </div>
     </section>
+
+    @foreach ($horarios as $horario)
+        @if ($horario->materia_id == $materia->id)
+            {{ $horario->id }}
+        @endif
+    @endforeach
 @endsection

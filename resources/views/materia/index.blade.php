@@ -81,6 +81,8 @@
                                             <td>{{ $materia->generacione->semestre->nombre }}</td>
                                             <td>{{ $materia->generacione->semestre->pe->nombre }}</td>
                                             <td>
+                                                <button type="button" class="btn btn-primary" id="btnAbrirModal">Abrir Modal</button>
+
                                                 <form action="{{ route('materias.destroy',$materia->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('materias.show',$materia->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('materias.edit',$materia->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
@@ -101,6 +103,101 @@
         </div>
     </div>
 
+  <!-- Botón para abrir el modal -->
+
+                <!-- Contenedor del modal -->
+        <!-- Contenedor del modal -->
+        <div class="modal" tabindex="-1" role="dialog" id="miModal">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Formulario de Horarios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <!-- Aquí se generarán dinámicamente los inputs -->
+                <form id="formularioHorarios">
+                    <!-- Los inputs se generarán aquí -->
+                </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" form="formularioHorarios" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+          <!-- Script para cargar el JSON y generar los inputs -->
+          <script>
+            document.getElementById('btnAbrirModal').addEventListener('click', function () {
+              var url = 'http://localhost/horarios_laravel2/public/hora/2';
+          
+              fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                  // Llenar el modal con los datos del JSON
+                  var modalBody = document.querySelector('#miModal .modal-body');
+                  var form = document.getElementById('formularioHorarios');
+          
+                  // Limpiar el contenido del modal
+                  modalBody.innerHTML = '';
+          
+                  // Crear inputs y agregarlos al modal
+                  data.horarios.forEach(function (horario, index) {
+                    var inputDia = document.createElement('input');
+                    inputDia.type = 'text';
+                    inputDia.name = 'dia_' + index;
+                    inputDia.value = horario.dia;
+                    inputDia.classList.add('form-control');
+          
+                    // También puedes crear más inputs y llenarlos con la información que desees...
+          
+                    // Agregar los inputs al modal
+                    modalBody.appendChild(inputDia);
+                  });
+          
+                  // Agregar nuevos datos
+                  var nuevosDatos = [
+                    { name: 'dia_nuevo_1', value: 'Jueves' },
+                    { name: 'hora_inicio_nuevo_1', value: 11 },
+                    { name: 'hora_fin_nuevo_1', value: 12 }
+                  ];
+          
+                  nuevosDatos.forEach(function (dato) {
+                    var inputNuevo = document.createElement('input');
+                    inputNuevo.type = 'text';
+                    inputNuevo.name = dato.name;
+                    inputNuevo.value = dato.value;
+                    inputNuevo.classList.add('form-control');
+          
+                    // Agregar los nuevos inputs al modal
+                    modalBody.appendChild(inputNuevo);
+                  });
+          
+                  // Agregar botones al formulario
+                  var btnGuardar = document.createElement('button');
+                  btnGuardar.type = 'submit';
+                  btnGuardar.classList.add('btn', 'btn-primary');
+                  btnGuardar.textContent = 'Guardar';
+          
+                  var btnCancelar = document.createElement('button');
+                  btnCancelar.type = 'button';
+                  btnCancelar.classList.add('btn', 'btn-secondary');
+                  btnCancelar.setAttribute('data-dismiss', 'modal');
+                  btnCancelar.textContent = 'Cancelar';
+          
+                  form.appendChild(btnGuardar);
+                  form.appendChild(btnCancelar);
+          
+                  // Mostrar el modal
+                  $('#miModal').modal('show');
+                })
+                .catch(error => console.error('Error al cargar el JSON:', error));
+            });
+          </script>
     <script>
         $(document).ready(function() {
             // Inicializar DataTables y DataTables - ColReorder

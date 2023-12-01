@@ -84,8 +84,8 @@ class MateriaController extends Controller
     public function show($id)
     {
         $materia = Materia::find($id);
-
-        return view('materia.show', compact('materia'));
+        $horarios = Horario::all();
+        return view('materia.show', compact('materia','horarios'));
     }
 
     /**

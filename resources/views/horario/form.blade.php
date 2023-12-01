@@ -39,12 +39,36 @@
 <div class="box box-info padding-1">
     <div class="box-body">
         
+
         <div class="form-group">
-            {{ Form::label('materia_id') }}
-            
-            {{ Form::select('materia_id', $materia, $horario->materia_id, ['class' => 'form-control' . ($errors->has('materia_id') ? ' is-invalid' : ''), 'placeholder' => 'Materia Id']) }}
-            {!! $errors->first('materia_id', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
+            <label for="materia_id">Materia Id</label>
+
+            <select class="form-control" id="materia_id" name="materia_id">
+                <option selected="selected" value="">Materia Id</option>
+                @foreach ($materias as $materia)
+                    @php
+                      $cuenta = app('App\Http\Controllers\MateriaController')->cuenta($materia->id);
+                    @endphp
+                    @if ($cuenta < $materia->horas_aula)
+                        <option value="{{ $materia->id }}">
+                            {{  $materia->generacione->Semestre->pe->nombre }} - {{  $materia->nombre }} - 
+                            {{ $materia->generacione->nombre }} - {{ $materia->docente->nombre ?? '' }} - 
+                            {{ $materia->horas_aula }} - {{ $cuenta }}
+                        </option>
+                    @endif
+                    @if ($horario->materia_id == $materia->id)
+                        <option value="{{ $materia->id }}" selected=selected>
+                            {{  $materia->generacione->Semestre->pe->nombre }} - {{  $materia->nombre }} - 
+                            {{ $materia->generacione->nombre }} - {{ $materia->docente->nombre ?? '' }} - 
+                            {{ $materia->horas_aula }} - {{ $cuenta }}
+                        </option>
+                    @endif                   
+                @endforeach
+            </select>
+        </div>          
+        
+
+        </select>
         <div class="form-group">
             {{ Form::label('dia') }}
             {!! Form::select('dia', $diasAsociativos, $horario->dia, ['class' => 'form-control', 'placeholder' => 'Selecciona un día']) !!}
